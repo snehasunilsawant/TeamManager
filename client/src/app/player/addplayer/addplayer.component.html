@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+     <a [routerLink]="['players','list']">List</a> | 
+      <a [routerLink]="['/players','addplayer']">Add Player</a>
+  </div>
+  <br>
+  <div>
+  <h2>Add Player </h2>
+  <form (submit)="addPlayer()" #playerForm='ngForm' >
+    
+        <p>Name : 
+          <input type='text' name='name' required 
+          minlength="2"
+          [(ngModel)]='player.name'
+          #name="ngModel">
+        </p>
+          <span *ngIf='name.errors'>Error : </span>
+          <span *ngIf='name.errors?.required'>Name is required</span>
+          <span *ngIf='name.errors?.minlength'>Minimum length is {{name.errors.minlength.requiredLength}}</span> 
+    
+          <p>Preffered Position : <input type='text' name ='position'
+            required 
+            [(ngModel)]='player.position'
+            #position="ngModel"></p>
+            <span *ngIf='position.errors'>Error : </span>
+            <span *ngIf='position.errors?.required'>position is required</span>
+               
+        <p><input type='submit' value='Add Player' [disabled]='!playerForm.valid'></p>
+      </form>	
+      {{ player | json}}
+    </div>
+</body>
+</html>
